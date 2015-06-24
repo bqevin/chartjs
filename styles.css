@@ -10,27 +10,15 @@ html{
 }
 body{
 	font-family: Helvetica, Arial, "Sans-Serif";
-	font-size: 0.813cm;
+	font-size: 0.613cm;
 	color: #ffffff;
 	margin-top: 10px;
-}
-img {
-	background: #ffffff;
-	border: 0px;
-}
-ul, ol, li {
-	list-style: none;
-}
-table {
-	border: 0px;
-	border-collapse: collapse;
-	width: 100%;
 }
 div {
 	width: 100%;
 	position: relative;
-	/*top: 0px;
-	left: 0px*/
+	top: 0px;
+	left: 0px;
 }
 a {
 	text-decoration: none;
@@ -39,7 +27,7 @@ a {
 a:hover {
 	text-decoration: underline;
 }
-#div0, #div3, #div4 {
+#div0, #div3 {
 	width: 400px;
 	left: 50%;
 	margin-left: -200px;
@@ -48,19 +36,20 @@ a:hover {
 	padding: 5px 0px;
     color: #000000;
 }
-#div1, #div5 {
-	width: 400px;
+#div1 {
+	width: 700px;
 	margin-top:50px;
 	background: #ffffff;
 	border-left: 1px solid #555555;
 	border-bottom: 1px solid #555555;
-	height: 300px;
+	height: 550px;
 	left: 50%;
 	margin-left: -200px;
 	overflow: hidden;
 }
 #div3{
-	border:0px;margin-top:0px;
+	border:0px;
+	margin-top:0px;
 }
 .div2 {
 	height: 0px;
@@ -70,9 +59,4 @@ a:hover {
 	top: 0px;
 	background: #EE6600;
 	background: linear-gradient(to center top, #006600, #004400);
-}
-#lineCanvas {
-	height: 300px;
-	width: 400px;
-	margin-bottom: 10px;
 }
