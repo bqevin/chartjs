@@ -2,16 +2,19 @@
 <html onload>
 	<head>
 		<title>Data to Charts</title>
-		<link rel="stylesheet" type="text/css" href="__styles.css"/>
-		<script type="text/javascript" src="jquery-2.1.4.min.js"></script>
-
+		<link rel="stylesheet" type="text/css" href="styles/styles.css"/>
 	</head>
 
 	<body>
-		<div id="div0">See Charts</div>
+		<div id="div0"><strong>See Charts</strong><br/>
+			<div class="circleDiv" onclick="drawPieChart(sampleData)">Pie Chart</div>
+			<div class="circleDiv" onclick="drawBarChart(sampleData)">Bar Chart</div>
+			<div class="circleDiv" onclick="drawHistogram(sampleData)">Histogram</div>
+			<div class="circleDiv" onclick="drawLineChart(sampleData)">Line Chart</div>
+		</div>
 		<div id="div1" style="width:400px;height:300px;border-left:1px solid;border-bottom:1px solid; "></div>
 		<div id="div3"></div>
-		<script type="text/javascript" src="scripts.js"></script>
+		<script type="text/javascript" src="scripts/scripts.js"></script>
 	</body>
 
 </html>

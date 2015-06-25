@@ -9,7 +9,7 @@ html{
 	overflow-x: hidden;
 }
 body{
-	font-family: Helvetica, Arial, "Sans-Serif";
+	font-family: Verdana, Arial, "Sans-Serif";
 	font-size: 0.613cm;
 	color: #ffffff;
 	margin-top: 10px;
@@ -19,10 +19,6 @@ div {
 	position: relative;
 	top: 0px;
 	left: 0px;
-}
-a {
-	text-decoration: none;
-	color: #0066ff;
 }
 a:hover {
 	text-decoration: underline;
@@ -37,26 +33,30 @@ a:hover {
     color: #000000;
 }
 #div1 {
-	width: 700px;
+	width: 400px;
 	margin-top:50px;
 	background: #ffffff;
 	border-left: 1px solid #555555;
 	border-bottom: 1px solid #555555;
-	height: 550px;
+	height: 200px;
 	left: 50%;
 	margin-left: -200px;
 	overflow: hidden;
 }
-#div3{
-	border:0px;
-	margin-top:0px;
+.circleDiv {
+    display: inline-block;
+    padding: 8px;
+    border: 3px solid #FCB326;
+    border-radius: 6px;
+    box-shadow: 
+        0 2px 1px rgba(0, 0, 0, 0.2), 
+        inset 0 2px 1px rgba(0, 0, 0, 0.2);
+    /* Font styles */
+    text-decoration: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #222;
 }
-.div2 {
-	height: 0px;
-	position: absolute;
-	width: 0px;
-	margin-left: 0px;
-	top: 0px;
-	background: #EE6600;
-	background: linear-gradient(to center top, #006600, #004400);
+.circleDiv:hover {
+    border-color: #FDD68B
 }
