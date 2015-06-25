@@ -61,7 +61,6 @@ function drawBarChart(dataset) {
 
     context.fillStyle ='#EE6600';
     context.fillRect(marginLeft, top, width, height);
-    console.log(marginLeft,top,width,height);
   }
   chartContainer.appendChild(canvasElement);
   document.getElementById("div3").innerHTML ="There's your Bar Chart";
@@ -126,15 +125,23 @@ function drawLineChart(dataset) {
     }
 
     context.beginPath();
-    if (dataset[j] < 0) {
-      context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), (maxNumber/totHeight)*heightOfContainer);
+    if ((maxNumber+minNumber) > maxNumber) {
+      context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt(heightOfContainer - height));
+      context.lineTo(cirMarginLeft, top);
+      context.arc(cirMarginLeft, top, 4, 0*Math.PI, 2*Math.PI);
     }
-    else if (dataset[j] > 0) {
-      context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), heightOfContainer - (height - ((minNumber/totHeight)*heightOfContainer)));
+    else if ((maxNumber+minNumber) < maxNumber) {
+      if (dataset[j] < 0) {
+        context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt((maxNumber/totHeight)*heightOfContainer + height));
+        context.lineTo(cirMarginLeft, top+height);
+        context.arc(cirMarginLeft, top+height, 4, 0*Math.PI, 2*Math.PI);
+      }
+      else if (dataset[j] > 0) {
+        context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt(heightOfContainer - (height - ((minNumber/totHeight)*heightOfContainer))));
+        context.lineTo(cirMarginLeft, top);
+        context.arc(cirMarginLeft, top, 4, 0*Math.PI, 2*Math.PI);
+      }
     }
-    context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt(heightOfContainer - parseInt(dataset[j-1]) - 1));
-    context.lineTo(cirMarginLeft, top);
-    context.arc(cirMarginLeft, top, 5, 0*Math.PI, 2*Math.PI);
     context.fillStyle ='#000000';
     context.fill();
     // console.log(marginLeft,top,width,height);
@@ -155,12 +162,22 @@ function drawHistogram(dataset) {
   if (typeof(dataset) !== 'object') {
     return;
   }
+
+  //height of bar dependent on the maximum and minimum element in array
+  var maxNumber = dataset[0];
+  var minNumber = dataset[0];
+  for (var i = 1; i < dataset.length; i++) {
+    if (dataset[i] > maxNumber) {
+      maxNumber = dataset[i];
+    }
+    else if (dataset[i] < minNumber) {
+      minNumber = dataset[i];
+    }
+  }
   //create canvas element
   var canvasElement = document.createElement("canvas");
-
   //attributes of canvas element
   canvasElement.setAttribute("id", "myCanvas");
-
   //set styles
   canvasElement.width = widthOfContainer;
   canvasElement.height = heightOfContainer;
@@ -169,21 +186,51 @@ function drawHistogram(dataset) {
   var context = barCanvas.getContext('2d');
 
   for (var j = 0; j < dataset.length; j++) {
+    var totHeight = 0;
     //create height, width of rect
     var marginLeft = parseInt(j * 2 + j * widthOfBar);
     var cirMarginLeft = parseInt((j * 2 + j * widthOfBar) + (widthOfBar/2));
-    var height = parseInt(dataset[j]);
+    var height = 0;
     var width = parseInt(widthOfBar);
-    var top = parseInt(heightOfContainer - parseInt(dataset[j]) - 1);
+    var top = 0;
+    if ((maxNumber+minNumber) > maxNumber) {
+      totHeight = maxNumber;
+      height = Math.abs((dataset[j]/totHeight)*heightOfContainer);
+      top = parseInt(heightOfContainer - height);
+    }
+    else if ((maxNumber+minNumber) < maxNumber) {
+      totHeight = maxNumber - minNumber;
+      height = Math.abs((dataset[j]/totHeight)*heightOfContainer);
+      if (dataset[j] < 0) {
+        top = ((maxNumber/totHeight)*heightOfContainer);
+      }
+      else if (dataset[j] > 0) {
+        top = heightOfContainer - (height - ((minNumber/totHeight)*heightOfContainer));
+      }
+    }  
 
     //the bars
     context.fillStyle ='#EE6600';
     context.fillRect(marginLeft, top, width, height);
     //the lines and points
     context.beginPath();
-    context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt(heightOfContainer - parseInt(dataset[j-1]) - 1));
-    context.lineTo(cirMarginLeft, top);
-    context.arc(cirMarginLeft, top, 4, 0*Math.PI, 2*Math.PI);
+    if ((maxNumber+minNumber) > maxNumber) {
+      context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt(heightOfContainer - height));
+      context.lineTo(cirMarginLeft, top);
+      context.arc(cirMarginLeft, top, 4, 0*Math.PI, 2*Math.PI);
+    }
+    else if ((maxNumber+minNumber) < maxNumber) {
+      if (dataset[j] < 0) {
+        context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt((maxNumber/totHeight)*heightOfContainer + height));
+        context.lineTo(cirMarginLeft, top+height);
+        context.arc(cirMarginLeft, top+height, 4, 0*Math.PI, 2*Math.PI);
+      }
+      else if (dataset[j] > 0) {
+        context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt(heightOfContainer - (height - ((minNumber/totHeight)*heightOfContainer))));
+        context.lineTo(cirMarginLeft, top);
+        context.arc(cirMarginLeft, top, 4, 0*Math.PI, 2*Math.PI);
+      }
+    }
     context.fillStyle ='#000000';
     context.fill();            
   }
@@ -220,14 +267,12 @@ function drawPieChart(dataset) {
   for (var i = 0; i < dataset.length; i++) {
     datasetTotal += dataset[i]; 
   }
-
   //declare variable called lastEnd
   var lastEnd = 0;
-
   //loop through the array and get angles
   for (var j = 0; j < dataset.length; j++) {
     //calculate angle representation of element in array
-    var angle = (dataset[j]/datasetTotal)*360;
+    var angle = (Math.abs(dataset[j])/datasetTotal)*360;
 
     context.beginPath();
     context.moveTo(xCenter,yCenter);
@@ -241,7 +286,7 @@ function drawPieChart(dataset) {
     context.fillStyle=color;
     context.fill();
 
-    lastEnd += Math.PI*2*angle;
+    lastEnd += Math.PI*(angle/180);
   }
   //add the canvas to the div container element
   chartContainer.appendChild(canvasElement);
