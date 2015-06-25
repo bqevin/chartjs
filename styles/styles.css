@@ -1,0 +1,63 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+html{
+	width: 100%;
+	height: 100%;
+	overflow: scroll;
+	overflow-x: hidden;
+}
+body{
+	font-family: Verdana, Arial, "Sans-Serif";
+	font-size: 0.413cm;
+	color: #ffffff;
+	margin-top: 10px;
+}
+div {
+	width: 100%;
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+input:hover {
+	text-decoration: underline;
+}
+#div0, #div3, #arrayChoice {
+	width: 400px;
+	font-size: 0.413cm;
+	left: 50%;
+	margin-left: -200px;
+	text-align: center;
+	border: 1px solid #CCCCCC;
+	padding: 5px 0px;
+    color: #000000;
+}
+#div1 {
+	width: 400px;
+	margin-top:50px;
+	background: #ffffff;
+	border-left: 1px solid #555555;
+	border-bottom: 1px solid #555555;
+	height: 200px;
+	left: 50%;
+	margin-left: -200px;
+	overflow: hidden;
+}
+.circleDiv {
+    display: inline-block;
+    padding: 8px;
+    border: 3px solid #FCB326;
+    border-radius: 6px;
+    box-shadow: 
+        0 2px 1px rgba(0, 0, 0, 0.2), 
+        inset 0 2px 1px rgba(0, 0, 0, 0.2);
+    /* Font styles */
+    text-decoration: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #222;
+}
+.circleDiv:hover {
+    border-color: #FDD68B
+}
