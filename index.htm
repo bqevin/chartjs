@@ -6,11 +6,21 @@
 	</head>
 
 	<body>
+		<div id="arrayChoice">
+			<form>
+				<p>Select each array and see the corresponding plotted charts for the data below.</p>
+				<input type="radio" id="sevenElement" onselect="">7 element array: <em>[15,7,9,3,8,10,13]</em>
+				<br/>
+				<input type="radio" id="forteenElement" onselect="">14 element array: <em>[15,7,9,3,8,10,13,17,1,24,21,5,19,6]</em>
+				<br/>
+				<input type="radio" id="extremeElement" onselect="">An array with extreme values: <em>[1000,80,609,300,20,100,13]</em>
+			</form>
+		</div>
 		<div id="div0"><strong>See Charts</strong><br/>
-			<div class="circleDiv" onclick="drawPieChart(sampleData)">Pie Chart</div>
-			<div class="circleDiv" onclick="drawBarChart(sampleData)">Bar Chart</div>
-			<div class="circleDiv" onclick="drawHistogram(sampleData)">Histogram</div>
-			<div class="circleDiv" onclick="drawLineChart(sampleData)">Line Chart</div>
+			<div class="circleDiv" onclick="drawPieChart()">Pie Chart</div>
+			<div class="circleDiv" onclick="drawBarChart()">Bar Chart</div>
+			<div class="circleDiv" onclick="drawHistogram()">Histogram</div>
+			<div class="circleDiv" onclick="drawLineChart()">Line Chart</div>
 		</div>
 		<div id="div1" style="width:400px;height:300px;border-left:1px solid;border-bottom:1px solid; "></div>
 		<div id="div3"></div>

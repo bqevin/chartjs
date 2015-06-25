@@ -1,7 +1,17 @@
-var sampleData = [20,80,-25,8,-5,10,15,10];
-function drawBarChart(dataset) {
+function drawBarChart() {
   var chartContainer = document.getElementById("div1");
   document.getElementById("div1").innerHTML ="";
+
+  if (document.getElementById("sevenElement").checked){
+    var dataset = [15,7,9,3,8,10,13];
+  }
+  else if (document.getElementById("forteenElement").checked) {
+    var dataset = [15,7,9,3,8,10,13,17,1,24,21,5,19,6];
+  }
+  else if (document.getElementById("extremeElement").checked) {
+    var dataset = [1200,80,609,300,20,100,13];
+  }
+
   var widthOfContainer = chartContainer.scrollWidth;
   var heightOfContainer = chartContainer.scrollHeight;
   //the width of the bar dependent on the size of array
@@ -71,6 +81,17 @@ function drawBarChart(dataset) {
 function drawLineChart(dataset) {
   var chartContainer = document.getElementById("div1");
   document.getElementById("div1").innerHTML ="";
+
+  if (document.getElementById("sevenElement").checked){
+    var dataset = [15,7,9,3,8,10,13];
+  }
+  else if (document.getElementById("forteenElement").checked) {
+    var dataset = [15,7,9,3,8,10,13,17,1,24,21,5,19,6];
+  }
+  else if (document.getElementById("extremeElement").checked) {
+    var dataset = [1200,80,609,300,20,100,13];
+  }
+
   var widthOfContainer = chartContainer.scrollWidth;
   var heightOfContainer = chartContainer.scrollHeight;
   var widthOfBar = parseInt(widthOfContainer / dataset.length) -2;
@@ -108,43 +129,43 @@ function drawLineChart(dataset) {
     var height = 0;
     var width = parseInt(widthOfBar);
     var top = 0;
+    //set variables for the previous points to be used to draw the lines
+    var prevTop = 0, prevCirMarginLeft = 0;
+
+    context.beginPath();
     if ((maxNumber+minNumber) > maxNumber) {
       totHeight = maxNumber;
       height = Math.abs((dataset[j]/totHeight)*heightOfContainer);
       top = parseInt(heightOfContainer - height);
+      prevTop = parseInt(heightOfContainer - Math.abs((dataset[j-1]/totHeight)*heightOfContainer));
+      prevCirMarginLeft = parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2));
+      context.moveTo(prevCirMarginLeft, prevTop);
+      context.lineTo(cirMarginLeft, top);
+      context.arc(cirMarginLeft, top, 4, 0*Math.PI, 2*Math.PI);
     }
     else if ((maxNumber+minNumber) < maxNumber) {
       totHeight = maxNumber - minNumber;
       height = Math.abs((dataset[j]/totHeight)*heightOfContainer);
       if (dataset[j] < 0) {
         top = (maxNumber/totHeight)*heightOfContainer;
-      }
-      else if (dataset[j] > 0) {
-        top = heightOfContainer - (height - ((minNumber/totHeight)*heightOfContainer));
-      }
-    }
-
-    context.beginPath();
-    if ((maxNumber+minNumber) > maxNumber) {
-      context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt(heightOfContainer - height));
-      context.lineTo(cirMarginLeft, top);
-      context.arc(cirMarginLeft, top, 4, 0*Math.PI, 2*Math.PI);
-    }
-    else if ((maxNumber+minNumber) < maxNumber) {
-      if (dataset[j] < 0) {
-        context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt((maxNumber/totHeight)*heightOfContainer + height));
+        prevTop = parseInt((maxNumber/totHeight)*heightOfContainer + Math.abs((dataset[j-1]/totHeight)*heightOfContainer));
+        prevCirMarginLeft = parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2));
+        context.moveTo(prevCirMarginLeft, prevTop);
         context.lineTo(cirMarginLeft, top+height);
         context.arc(cirMarginLeft, top+height, 4, 0*Math.PI, 2*Math.PI);
       }
       else if (dataset[j] > 0) {
-        context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt(heightOfContainer - (height - ((minNumber/totHeight)*heightOfContainer))));
+        top = heightOfContainer - (height - ((minNumber/totHeight)*heightOfContainer));
+        prevTop = parseInt(heightOfContainer - (Math.abs((dataset[j-1]/totHeight)*heightOfContainer) - ((minNumber/totHeight)*heightOfContainer)))
+        prevCirMarginLeft = parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2))
+        context.moveTo(prevCirMarginLeft, prevTop);
         context.lineTo(cirMarginLeft, top);
         context.arc(cirMarginLeft, top, 4, 0*Math.PI, 2*Math.PI);
       }
     }
+    context.stroke();
     context.fillStyle ='#000000';
     context.fill();
-    // console.log(marginLeft,top,width,height);
   }
   chartContainer.appendChild(canvasElement);
   document.getElementById("div3").innerHTML ="There's your Line Chart";
@@ -155,6 +176,17 @@ function drawLineChart(dataset) {
 function drawHistogram(dataset) {
   var chartContainer = document.getElementById("div1");
   document.getElementById("div1").innerHTML ="";
+
+  if (document.getElementById("sevenElement").checked){
+    var dataset = [15,7,9,3,8,10,13];
+  }
+  else if (document.getElementById("forteenElement").checked) {
+    var dataset = [15,7,9,3,8,10,13,17,1,24,21,5,19,6];
+  }
+  else if (document.getElementById("extremeElement").checked) {
+    var dataset = [1200,80,609,300,20,100,13];
+  }
+
   var widthOfContainer = chartContainer.scrollWidth;
   var heightOfContainer = chartContainer.scrollHeight;
   var widthOfBar = parseInt(widthOfContainer / dataset.length) -2;
@@ -193,44 +225,43 @@ function drawHistogram(dataset) {
     var height = 0;
     var width = parseInt(widthOfBar);
     var top = 0;
+    context.beginPath();
     if ((maxNumber+minNumber) > maxNumber) {
       totHeight = maxNumber;
       height = Math.abs((dataset[j]/totHeight)*heightOfContainer);
       top = parseInt(heightOfContainer - height);
+      prevTop = parseInt(heightOfContainer - Math.abs((dataset[j-1]/totHeight)*heightOfContainer));
+      prevCirMarginLeft = parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2));
+      context.moveTo(prevCirMarginLeft, prevTop);
+      context.lineTo(cirMarginLeft, top);
+      context.arc(cirMarginLeft, top, 4, 0*Math.PI, 2*Math.PI);
     }
     else if ((maxNumber+minNumber) < maxNumber) {
       totHeight = maxNumber - minNumber;
       height = Math.abs((dataset[j]/totHeight)*heightOfContainer);
       if (dataset[j] < 0) {
-        top = ((maxNumber/totHeight)*heightOfContainer);
+        top = (maxNumber/totHeight)*heightOfContainer;
+        prevTop = parseInt((maxNumber/totHeight)*heightOfContainer + Math.abs((dataset[j-1]/totHeight)*heightOfContainer));
+        prevCirMarginLeft = parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2));
+        context.moveTo(prevCirMarginLeft, prevTop);
+        context.lineTo(cirMarginLeft, top+height);
+        context.arc(cirMarginLeft, top+height, 4, 0*Math.PI, 2*Math.PI);
       }
       else if (dataset[j] > 0) {
         top = heightOfContainer - (height - ((minNumber/totHeight)*heightOfContainer));
+        prevTop = parseInt(heightOfContainer - (Math.abs((dataset[j-1]/totHeight)*heightOfContainer) - ((minNumber/totHeight)*heightOfContainer)))
+        prevCirMarginLeft = parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2))
+        context.moveTo(prevCirMarginLeft, prevTop);
+        context.lineTo(cirMarginLeft, top);
+        context.arc(cirMarginLeft, top, 4, 0*Math.PI, 2*Math.PI);
       }
-    }  
+    }
 
     //the bars
     context.fillStyle ='#EE6600';
     context.fillRect(marginLeft, top, width, height);
     //the lines and points
-    context.beginPath();
-    if ((maxNumber+minNumber) > maxNumber) {
-      context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt(heightOfContainer - height));
-      context.lineTo(cirMarginLeft, top);
-      context.arc(cirMarginLeft, top, 4, 0*Math.PI, 2*Math.PI);
-    }
-    else if ((maxNumber+minNumber) < maxNumber) {
-      if (dataset[j] < 0) {
-        context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt((maxNumber/totHeight)*heightOfContainer + height));
-        context.lineTo(cirMarginLeft, top+height);
-        context.arc(cirMarginLeft, top+height, 4, 0*Math.PI, 2*Math.PI);
-      }
-      else if (dataset[j] > 0) {
-        context.moveTo(parseInt(((j-1) * 2 + (j-1) * widthOfBar) + (widthOfBar/2)), parseInt(heightOfContainer - (height - ((minNumber/totHeight)*heightOfContainer))));
-        context.lineTo(cirMarginLeft, top);
-        context.arc(cirMarginLeft, top, 4, 0*Math.PI, 2*Math.PI);
-      }
-    }
+
     context.fillStyle ='#000000';
     context.fill();            
   }
@@ -243,6 +274,17 @@ function drawHistogram(dataset) {
 function drawPieChart(dataset) {
   var chartContainer = document.getElementById("div1");
   document.getElementById("div1").innerHTML ="";
+
+  if (document.getElementById("sevenElement").checked){
+    var dataset = [15,7,9,3,8,10,13];
+  }
+  else if (document.getElementById("forteenElement").checked) {
+    var dataset = [15,7,9,3,8,10,13,17,1,24,21,5,19,6];
+  }
+  else if (document.getElementById("extremeElement").checked) {
+    var dataset = [1200,80,609,300,20,100,13];
+  }
+
   var widthOfContainer = chartContainer.scrollWidth;
   var heightOfContainer = chartContainer.scrollHeight;
 

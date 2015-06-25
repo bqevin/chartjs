@@ -10,7 +10,7 @@ html{
 }
 body{
 	font-family: Verdana, Arial, "Sans-Serif";
-	font-size: 0.613cm;
+	font-size: 0.413cm;
 	color: #ffffff;
 	margin-top: 10px;
 }
@@ -20,11 +20,12 @@ div {
 	top: 0px;
 	left: 0px;
 }
-a:hover {
+input:hover {
 	text-decoration: underline;
 }
-#div0, #div3 {
+#div0, #div3, #arrayChoice {
 	width: 400px;
+	font-size: 0.413cm;
 	left: 50%;
 	margin-left: -200px;
 	text-align: center;
